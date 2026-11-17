@@ -61,8 +61,6 @@ let answersDisabled = false;
 totalQuestionsSpan.textContent = quizQuestions.length;
 maxScoreSpan.textContent = quizQuestions.length;
 
-//event listerners
-
 startButton.addEventListener("click", startQuiz);
 restartButton.addEventListener("click", restartQuiz);
 
@@ -79,7 +77,6 @@ function startQuiz() {
 }
 
 function showQuestion() {
-  // reset state
   answersDisabled = false;
 
   const currentQuestion = quizQuestions[currentQuestionIndex];
@@ -92,7 +89,6 @@ function showQuestion() {
 
   questionText.textContent = currentQuestion.question;
 
-  //todo: explain this in a sec
   answersContainer.innerHTML = "";
 
   currentQuestion.answers.forEach((answer) => {
@@ -101,7 +97,6 @@ function showQuestion() {
     button.textContent = answer.text;
     button.classList.add("answer-btn");
 
-    //what is database? it's a property of the button element that allows you to store custom data
     button.dataset.correct = answer.correct;
 
     button.addEventListener("click", selectAnswer);
@@ -111,7 +106,6 @@ function showQuestion() {
 }
 
 function selectAnswer(event) {
-  //optimization check
   if (answersDisabled) return;
 
   answersDisabled = true;
@@ -119,7 +113,6 @@ function selectAnswer(event) {
   const selectedButton = event.target;
   const isCorrect = selectedButton.dataset.correct == "true";
 
-  //todo: explain this in a sec
   Array.from(answersContainer.children).forEach((button) => {
     if (button.dataset.correct == "true") {
       button.classList.add("correct");
@@ -136,7 +129,6 @@ function selectAnswer(event) {
   setTimeout(() => {
     currentQuestionIndex++;
 
-    //check if there are more questions or if the quiz is over
     if (currentQuestionIndex < quizQuestions.length) {
       showQuestion();
     } else {
