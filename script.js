@@ -14,44 +14,43 @@ const resultMessage = document.getElementById("result-message");
 const restartButton = document.getElementById("restart-btn");
 const progressBar = document.getElementById("progress");
 
-
 const quizQuestions = [
-    {
-        question: "What is the capital of France?",
-        answers: [
-            { text: "London", correct: false},
-            { text: "Berlin", correct: false},
-            { text: "Paris", correct: true},
-            { text: "Madrid", correct: false},
-        ],
-    },
-    {
-        question: "Which plant is known as the Red Planet?",
-        answers: [
-            { text: "Venus", correct: false},
-            { text: "Mars", correct: true},
-            { text: "Jupiter", correct: false},
-            { text: "Saturn", correct: false},
-        ],
-    },
-    {
-        question: "What is the largest Ocean on Earth?",
-        answers: [
-            { text: "Atlantic Ocean", correct: false},
-            { text: "Pacific Ocean", correct: true},
-            { text: "Indian Ocean", correct: false},
-            { text: "Arctic Ocean", correct: false},
-        ],
-    },
-    {
-        question: "Which of these is not a Programming Language?",
-        answers: [
-            { text: "Java", correct: false},
-            { text: "Python", correct: false},
-            { text: "Banana", correct: true},
-            { text: "JavaScript", correct: false},
-        ],
-    },
+  {
+    question: "What is the capital of France?",
+    answers: [
+      { text: "London", correct: false },
+      { text: "Berlin", correct: false },
+      { text: "Paris", correct: true },
+      { text: "Madrid", correct: false },
+    ],
+  },
+  {
+    question: "Which plant is known as the Red Planet?",
+    answers: [
+      { text: "Venus", correct: false },
+      { text: "Mars", correct: true },
+      { text: "Jupiter", correct: false },
+      { text: "Saturn", correct: false },
+    ],
+  },
+  {
+    question: "What is the largest Ocean on Earth?",
+    answers: [
+      { text: "Atlantic Ocean", correct: false },
+      { text: "Pacific Ocean", correct: true },
+      { text: "Indian Ocean", correct: false },
+      { text: "Arctic Ocean", correct: false },
+    ],
+  },
+  {
+    question: "Which of these is not a Programming Language?",
+    answers: [
+      { text: "Java", correct: false },
+      { text: "Python", correct: false },
+      { text: "Banana", correct: true },
+      { text: "JavaScript", correct: false },
+    ],
+  },
 ];
 
 //QUIZ STATE VARS
@@ -68,43 +67,102 @@ startButton.addEventListener("click", startQuiz);
 restartButton.addEventListener("click", restartQuiz);
 
 function startQuiz() {
-    // reset vars
-    currentQuestionIndex = 0;
-    scoreSpan.textContent = 0;
+  // reset vars
+  currentQuestionIndex = 0;
+  scoreSpan.textContent = 0;
 
-    startScreen.classList.remove("active");
-    quizScreen.classList.add("active");
+  startScreen.classList.remove("active");
+  quizScreen.classList.add("active");
 
-    showQuestion()
+  showQuestion();
 }
 
 function showQuestion() {
-    // reset state
-    answersDisabled = false;
+  // reset state
+  answersDisabled = false;
 
-    const currentQuestion = quizQuestions[currentQuestionIndex]
+  const currentQuestion = quizQuestions[currentQuestionIndex];
 
-    currentQuestionSpan.textContent = currentQuestionIndex + 1
+  currentQuestionSpan.textContent = currentQuestionIndex + 1;
 
-    const progressPercent = (currentQuestion / quizQuestions.length) * 100;
-    progressBar.style.width = progressPercent + "%"
+  const progressPercent = (currentQuestion / quizQuestions.length) * 100;
+  progressBar.style.width = progressPercent + "%";
 
-    questionText.textContent = currentQuestion.question
+  questionText.textContent = currentQuestion.question;
 
-    //todo: explain this in a sec
-    answersContainer.innerHTML = "";
+  //todo: explain this in a sec
+  answersContainer.innerHTML = "";
 
-    currentQuestion.answers.forEach(answer=> {
-        const button = document.createElement("button")
-        button.textContent = answer.text
-        button.classList.add("answer-btn")
+  currentQuestion.answers.forEach((answer) => {
+    const button = document.createElement("button");
+    button.textContent = answer.text;
+    button.classList.add("answer-btn");
 
-        //what is database? it's a property of the button element that allows you to store custom data
-        button.dataset
-    })
+    //what is database? it's a property of the button element that allows you to store custom data
+    button.dataset.correct = answer.correct;
+
+    answersContainer.appendChild(button);
+  });
+}
+
+function selectAnswer(event) {
+  //optimization check
+  if (answersDisabled) return;
+
+  answersDisabled = true;
+
+  const selectedButton = event.target;
+  const isCorrect = selectedButton.dataset.correct == "true";
+
+  //todo: explain this in a sec
+  Array.from(answersContainer.children).forEach((button) => {
+    if (button.dataset.correct == "true") {
+      button.classList.add("correct");
+    } else if (button === selectedButton) {
+      button.classList.add("incorrect");
+    }
+  });
+
+  if (isCorrect) {
+    score++;
+    scoreSpan.textContent = score;
+  }
+
+  setTimeout(() => {
+    currentQuestionIndex++;
+
+    //check if there are more questions or if the quiz is over
+    if (currentQuestionIndex < quizQuestions.length) {
+      showQuestion();
+    } else {
+      showResults();
+    }
+  }, 1000);
+}
+
+function showResults() {
+  quizScreen.classList.remove("active");
+  resultScreen.classList.add("active");
+
+  finalScoreSpan.textContent = score;
+
+  const percentage = (score / quizQuestions.length) * 100;
+
+  if (percentage === 100) {
+    resultMessage.textContent = "Perfect! You're a genius!";
+  } else if (percentage >= 80) {
+    resultMessage.textContent = "Great job! You know your stuff!";
+  } else if (percentage >= 60) {
+    resultMessage.textContent = "Good effort! Keep learning!";
+  } else if (percentage >= 40) {
+    resultMessage.textContent = "Not bad! Try again to improve!";
+  } else if (percentage >= 0) {
+    resultMessage.textContent = "Keep studying! You'll get better!";
+  }
 }
 
 function restartQuiz() {
-    console.log("quiz re-started");
-}
+  resultScreen.classList.remove("active");
 
+  startQuiz();
+}
