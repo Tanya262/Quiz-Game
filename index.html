@@ -11,12 +11,12 @@
       <div class="screen active" id="start-screen">
         <h1>QUIZ TIME!</h1>
         <p>Test your knowledge with these fun questions</p>
-        <button>Start Quiz</button>
+        <button id="start-btn">Start Quiz</button>
       </div>
 
       <div class="screen" id="quiz-screen">
         <div class="quiz-header">
-          <h2 id="question=text">Question Goes here</h2>
+          <h2 id="question-text">Question Goes here</h2>
           <div class="quiz-info">
             <p>
               Question <span id="current-question">1</span> of
@@ -26,14 +26,14 @@
             <p>Score: <span id="score">0</span></p>
           </div>
         </div>
-      </div>
 
-      <div id="answers-container" class="answer-container">
-        <!-- Answer will be done from jscript from here-->
-      </div>
+        <div id="answers-container" class="answers-container">
+          <!-- Answer will be done from jscript from here-->
+        </div>
 
-      <div class="progress-bar">
-        <div class="progress" id="progress"></div>
+        <div class="progress-bar">
+          <div class="progress" id="progress"></div>
+        </div>
       </div>
 
       <div class="screen" id="result-screen">
@@ -45,6 +45,7 @@
         </p>
 
         <div id="result-message">Good Job!</div>
+        <button id="restart-btn">Restart Quiz</button>
       </div>
     </div>
     <script src="script.js"></script>
