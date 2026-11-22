@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: #f5efe6;
+    background-color: #eaf4fc;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -37,7 +37,7 @@ body {
 
 /*START-SCREEN*/
 #start-screen h1 {
-    color: #e86a33;
+    color: #3979b9;
     margin-bottom: 20px;
     font-size: 2.5rem;
 }
@@ -75,9 +75,9 @@ body {
 }
 
 .answer-btn {
-    background-color: #f8f0e5;
-    color: #333;
-    border: 2px solid #eadbc8;
+    background-color: #f0f7ff;
+    color: #263b50;
+    border: 2px solid #c9def2;
     border-radius: 10px;
     padding: 1rem;
     cursor: pointer;
@@ -86,8 +86,8 @@ body {
 }
 
 .answer-btn:hover {
-    background-color: #eadbc8;
-    border-color: #dac0ae;
+    background-color: #dcecff;
+    border-color: #a9c9eb;
 }
 
 .answer-btn.correct {
@@ -103,7 +103,7 @@ body {
 }
 
 .progress-bar {
-    background-color: #f8f0e5;
+    background-color: #e1edf8;
     height: 10px;
     border-radius: 5px;
     margin-top: 20px;
@@ -111,7 +111,7 @@ body {
 }
 
 .progress {
-    background-color: #e86a33;
+    background-color: #4b91d1;
     height: 100%;
     width: 0%;
     transition: width 0.3s ease;
@@ -120,28 +120,28 @@ body {
 /*Result-Screen*/
 
 #result-screen h2 {
-    color: #e86a33;
+    color: #3979b9;
     font-size: 2rem;
     margin-bottom: 30px;
 }
 
 .result-info {
-    background-color: #f8f0e5;
+    background-color: #edf5fd;
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 30px;
-    font-size: 1.1remS;
+    font-size: 1.1rem;
 }
 
 #result-message {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #e86a33;
+    color: #3979b9;
     margin-top: 15px;
 }
 
 button {
-    background-color: #e86a33;
+    background-color: #4b91d1;
     color: white;
     border: none;
     padding: 15px 30px;
@@ -152,15 +152,15 @@ button {
 }
 
 button:hover {
-    background-color: #d45b28;
+    background-color: #3479b9;S
 }
 
-@media (max-width:500px) {
+@media (max-width: 500px) {
     
     .screen {
         padding: 1rem;
     }
-
+        
     #start-screen h1 {
         font-size: 2rem;
     }

@@ -145,6 +145,14 @@ function showResults() {
 
   const percentage = (score / quizQuestions.length) * 100;
 
+  if (percentage == 100) {
+    confetti({
+      particleCont: 100,
+      spread: 100,
+      origin: { y: 0.5 },
+    });
+  }
+
   if (percentage === 100) {
     resultMessage.textContent = "Perfect! You're a genius!";
   } else if (percentage >= 80) {
